@@ -1,8 +1,9 @@
 console.log("connected!");
 
-$("button").on("click", function() {
-
-    var stockURL = "https://api.iextrading.com/1.0//stock/msft/batch?types=quote,news,chart&range=1m&last=7";
+$("#stockSearch").on("click", function() {
+    var search = $("input").val();
+    var stockURL = "https://api.iextrading.com/1.0//stock/" + search + "/batch?types=quote,news,chart&range=1m&last=7";
+    $(".imgToggle").css("display", "none");
 
     $.ajax({
         method: "GET",
@@ -20,8 +21,26 @@ $("button").on("click", function() {
             dateArr.push(response.chart[i].date);
             companyDates = $.makeArray(dateArr);
             companyData = $.makeArray(arr);
-            
-    }
+        }
+
+        for(var i = 0; i <response.news.length; i++) {
+            var articleHeadline = response.news[i].headline;
+            var articleURL = response.news[i].url;
+            var newDiv = $("<div>");
+            newDiv.attr("id", "articleDiv");
+            var newHeadline = $("<a>");
+            newHeadline.attr("href", articleURL);
+            newHeadline.attr("target", "_blank");
+            newHeadline.text(articleHeadline);
+            $(".container2").prepend(newDiv);
+            $("#articleDiv").prepend(newHeadline);
+        }
+
+        var newHeader = $("<h2>");
+        newHeader.text("Latest Headlines");
+        $("#articleDiv").prepend(newHeader);
+
+
     
     $(function () {
         var ctx = $("#myChart");
