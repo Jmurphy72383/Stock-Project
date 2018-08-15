@@ -36,8 +36,9 @@ $("#stockSearch").on("click", function() {
             $("#articleDiv").prepend(newHeadline);
         }
 
+        $(".container2").fadeIn();
         var newHeader = $("<h2>");
-        newHeader.text("Latest Headlines");
+        newHeader.text("Latest " + companyName + " Headlines");
         $("#articleDiv").prepend(newHeader);
 
 

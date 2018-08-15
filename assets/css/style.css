@@ -16,11 +16,33 @@ h1 {
 
 
 .container {
-    width: 70%;
-    height: 40%;
-    margin: 0 auto;
+    width: 60%;
+    height: 50%;
+    display: inline-block;
+    /*margin: 0 auto;*/
 }
 
 .imgToggle {
     width: 100%;
+}
+
+.container2 {
+    width: 30%;
+    height: 50%;
+    font-size: 15px;
+    overflow: auto;
+    display: none;
+    display: inline-block;
+}
+
+.mainContent {
+    width: 90%;
+    margin: 0 auto;
+    display: inline-block;
+}
+
+.container2 h2 {
+    font-weight: bolder;
+    font-size: 18px;
+    text-align: center;
 }
