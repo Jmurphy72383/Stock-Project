@@ -5,33 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Stock Project</title>
+    <!-- CSS Stylesheets -->
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <!-- JQuery -->
     <script
         src="https://code.jquery.com/jquery-3.3.1.js"
         integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
         crossorigin="anonymous">
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+    <!-- Chart.JS bundled with Moment.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
 </head>
 <body>
 
     <header>
         <h1>Placeholder Headline</h1>
+        <nav class="main-nav">
+            <div class="dropdown">
+                <button class="dropbtn">Trending Companies</button>
+                <div class="dropdown-content">
+                  <a id="menuAmazon" href="#"><i class="fab fa-amazon"></i> Amazon</a>
+                  <a id="menuApple" href="#"><i class="fab fa-apple"></i> Apple</a>
+                  <a id="menuFacebook"href="#"><i class="fab fa-facebook"></i> Facebook</a>
+                  <a id="menuGoogle" href="#"><i class="fab fa-google"></i> Google</a>
+                  <a id="menuMicrosoft" href="#"><i class="fab fa-microsoft"></i> Microsoft</a>
+                  <a id="menuSpotify" href="#"><i class="fab fa-spotify"></i> Spotify</a>
+                  <a id="menuTwitter" href="#"><i class="fab fa-twitter"></i> Twitter</a>
+                </div>
+            </div>
+            
+            <div class="search-nav">
+                <input id="companySearch" type="text" placeholder="Search by Company Name">
+                <button id="tradier">Search</button>
+
+                <!-- <input id="companySearch" type="text" placeholder="Search by Company Name">
+                <button id="tradier">Tradier</button> -->
+            </div>
+        </nav>
     </header>
 
-<input type="text" placeholder="Search">
-<button id="stockSearch">CLICK</button>
+    <div class="wrapper">
 
-<div class="mainContent">
-    <div class="container">
-        <img class="imgToggle" src="assets/images/stock-market.jpg" alt="pic">
-        <canvas id="myChart"></canvas>
+        <div class="container1">
+            <img class="imgToggle" src="assets/images/stock-market.jpg" alt="pic">
+            <canvas id="myChart"></canvas>
+        </div>
+
+            
+        <div class="container2"></div>
+
     </div>
-
-    <div class="container2"></div>
-
-</div>
 
 
 
