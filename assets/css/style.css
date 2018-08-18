@@ -1,5 +1,8 @@
 body {
     box-sizing: border-box;
+    background: url("../images/nyse.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 header {
@@ -7,10 +10,12 @@ header {
 }
 
 h1 {
-    font-size: 50px;
+    font-size: 65px;
     text-align: center;
     padding-top: 10px;
     padding-bottom: 10px;
+    font-family: 'Cinzel', serif;
+    color: firebrick;
 }
 
 .main-nav {
@@ -19,16 +24,16 @@ h1 {
     background: black;
 }
 
-
 .search-nav {
-    float: right;
-    margin-right: 20px;
+    margin-left: 28%;
     margin-top: 5px;
+    display: inline-block;
 }
 
 .search-nav button {
     margin-left: -5px;
     padding-right: 10px;
+    height: 36px;
 }
 
 input {
@@ -36,28 +41,76 @@ input {
     width: 200px;
 }
 
+.wrapper {
+    width: 95%;
+    margin: 0 auto;
+}
 
 .container1 {
-    width: 60%;
+    width: 90%;
     height: 50%;
     margin: 0 auto;
 }
 
-.imgToggle {
-    width: 100%;
+#myChart {
+    display: none;
+}
+
+.newsContent {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25px;
+}
+
+#latestQuote {
+    width: 40%;
+    border: 1px solid black;
+    height: 30%;
+    display: none;
+    height: 190px;
+    margin-left: 80px;
+    overflow: auto;
+    box-shadow: 0px 0px 0px 4px #006B96;
+    border: 4px solid #fff;
 }
 
 .container2 {
     font-size: 15px;
     overflow: auto;
     border: 1px solid black;
-    width: 40%;
-    margin: 0 auto;
+    width: 50%;
+    display: none;
+    height: 190px;
+    box-shadow: 0px 0px 0px 4px #006B96;
+    border: 4px solid #fff;
+}
+
+#price {
+    color: green;
+}
+
+#low {
+    color: red;
+}
+
+#latestQuote h2 {
+    font-weight: bolder;
+    font-size: 25px;
+    text-align: center;
+    padding: 10px 0;
+    text-decoration: underline;
+}
+
+#latestQuote h3 {
+    font-size: 20px;
+    margin-left: 5px;
+    line-height: 1.5;
 }
 
 .container2 h2 {
     font-weight: bolder;
-    font-size: 20px;
+    font-size: 25px;
     text-align: center;
     padding: 10px 0;
     text-decoration: underline;
@@ -69,6 +122,19 @@ input {
     line-height: 1.5;
     color: black;
     text-decoration: none;
+}
+
+footer {
+    width: 100%;
+    background-color: black;
+    height: 30px;
+    text-align: center;
+    color: white;
+    display: none;
+}
+
+footer p {
+    padding-top: 5px;
 }
 
 a:hover {
@@ -123,3 +189,40 @@ a:hover {
     width: 0px;  /* remove scrollbar space */
     background: transparent;  /* optional: just make scrollbar invisible */
 }
+
+/* Modal Styling */
+.modal {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+    background-color: yellow;
+    margin: 20% auto;
+    padding: 20px;
+    width: 30%;
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
+}
+.modal-content h2 {
+    font-size: 25px;
+    text-align: center;
+    font-weight: bolder;
+}
+.closeBtn {
+    color: white;
+    font-size: 30px;
+    display: inline-block;
+    margin-left: 95%;
+}
+.closeBtn:hover {
+    color: black;
+    text-decoration: none;
+}
+
+

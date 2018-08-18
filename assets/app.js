@@ -3,7 +3,10 @@ console.log("connected!");
 //Tradier API Key 7CtiDC68QadwoeHJbLRmQu5l7qaE
 
 $("#tradier").on("click", function() {
-    $(".imgToggle").css("display", "none");
+    $("body").css("background", "linear-gradient(to right, #e0eafc, #cfdef3)");
+    $("#latestQuote").empty();
+    $("#myChart").empty();
+    
     var companySearch = $("#companySearch").val();
     var tradierURL = "https://sandbox.tradier.com/v1/markets/search?q=" + companySearch;
     
@@ -36,11 +39,16 @@ $("#tradier").on("click", function() {
 
     .then(function(response) {
         console.log(response);
+        console.log(response.quote.latestPrice);
 
         var companyName = response.quote.companyName;
         var arr = [];
         var dateArr = [];
-        
+
+        //Change h1 to company name of chart being displayed and empty the search input field
+        $("h1").text(companyName);
+        $("#companySearch").val("");
+
         for(var i = 0; i < response.chart.length; i++) {
             arr.push(response.chart[i].close);
             dateArr.push(response.chart[i].date);
@@ -61,10 +69,44 @@ $("#tradier").on("click", function() {
             $("#articleDiv").prepend(newHeadline);
         }
 
-        $(".container2").fadeIn();
-        var newHeader = $("<h2>");
-        newHeader.text("Latest " + companyName + " Headlines");
-        $("#articleDiv").prepend(newHeader);
+    //Compiling Data for the Latest Quote Div and appending it to the page
+    $("#latestQuote").fadeIn();
+    $("#latestQuote").css("display", "inline-block");
+    var quoteHeader = $("<h2>");
+    quoteHeader.text("Up to the Minute Quote...");
+    $("#latestQuote").prepend(quoteHeader);
+    
+    var marketHeader = $("<h3>");
+    marketHeader.text("Market: " + response.quote.primaryExchange);
+    $("#latestQuote").append(marketHeader);
+    
+    var timeHeader = $("<h3>");
+    timeHeader.text("Time: " + response.quote.latestTime);
+    $("#latestQuote").append(timeHeader)
+    
+    var priceHeader = $("<h3>");
+    priceHeader.attr("id", "price");
+    priceHeader.text("Latest Price: " + response.quote.latestPrice);
+    $("#latestQuote").append(priceHeader);
+
+    var highHeader = $("<h3>");
+    highHeader.text("52 Week High: " + response.quote.week52High);
+    $("#latestQuote").append(highHeader);
+
+    var lowHeader = $("<h3>");
+    lowHeader.attr("id", "low");
+    lowHeader.text("52 Week Low: " + response.quote.week52Low);
+    $("#latestQuote").append(lowHeader);
+
+    //Making the News Articles Div appear on the page and prepending a header
+    $(".container2").fadeIn();
+    $(".container2").css("display", "inline-block");
+    var newHeader = $("<h2>");
+    newHeader.text("Latest " + companyName + " Headlines");
+    $("#articleDiv").prepend(newHeader);
+
+    //Styling the footer to appear on the page
+    $("footer").fadeIn();
 
     
     $(function () {
@@ -105,6 +147,9 @@ $("#tradier").on("click", function() {
         myChart.update()
     }
     })
+
+    
+})
 
 //Menu Queries
 
@@ -285,5 +330,5 @@ function batch() {
     }
     })
 }
-})
+
 

@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
     <!-- JQuery -->
     <script
         src="https://code.jquery.com/jquery-3.3.1.js"
@@ -20,8 +22,16 @@
 </head>
 <body>
 
+    <!-- modal -->
+    <div id="simpleModal" class="modal">
+        <div class="modal-content">
+            <span class="closeBtn">&times;</span>
+            <h2>Invalid Search Request.  Please Try Again.</h2>
+        </div>
+    </div>
+
     <header>
-        <h1>Placeholder Headline</h1>
+        <h1>FNG Investing</h1>
         <nav class="main-nav">
             <div class="dropdown">
                 <button class="dropbtn">Trending Companies</button>
@@ -38,10 +48,7 @@
             
             <div class="search-nav">
                 <input id="companySearch" type="text" placeholder="Search by Company Name">
-                <button id="tradier">Search</button>
-
-                <!-- <input id="companySearch" type="text" placeholder="Search by Company Name">
-                <button id="tradier">Tradier</button> -->
+                <button id="tradier" class="hvr-rectangle-in">Search</button>
             </div>
         </nav>
     </header>
@@ -49,14 +56,20 @@
     <div class="wrapper">
 
         <div class="container1">
-            <img class="imgToggle" src="assets/images/stock-market.jpg" alt="pic">
             <canvas id="myChart"></canvas>
         </div>
 
+        <div class="newsContent">
+            <div id="latestQuote"></div>   
             
-        <div class="container2"></div>
+            <div class="container2"></div>
+        </div>
 
     </div>
+
+    <footer>
+        <p>Copyright 2018</p>
+    </footer>
 
 
 
