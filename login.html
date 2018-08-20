@@ -6,12 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Stock Project Login</title>
     <link rel="stylesheet" href="assets/css/login.css">
+    <link href="https://fonts.googleapis.com/css?family=Cormorant+SC|Faster+One" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <script src="https://www.gstatic.com/firebasejs/5.4.0/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css" />
 </head>
 <body>
-    <h1>FNG Investments</h1>
+    <header>
+        <h1 id="logo" class="animated slideInLeft">FNG Investing</h1>
+        <h2 class="animated slideInRight"><i class="fas fa-chart-line"></i> Your Source for the Latest Stock Quotes and News <i class="far fa-newspaper"></i></h2>
+    </header>
+    
+    
     <div id="firebaseui-auth-container"></div>
     <div id="loader">Loading...</div>
     
