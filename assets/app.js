@@ -1,13 +1,65 @@
 console.log("connected!");
 
+//Firebase user login Authentication
+var app_firebase = {};
+
+(function(){
+
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyC4FnvjiTE7vANDTnOJCii_iYQShe505dI",
+    authDomain: "stock-charts-91d00.firebaseapp.com",
+    databaseURL: "https://stock-charts-91d00.firebaseio.com",
+    projectId: "stock-charts-91d00",
+    storageBucket: "",
+    messagingSenderId: "1048504771299"
+  };
+  firebase.initializeApp(config);
+
+  app_firebase = firebase;
+
+})()
+
+var mainApp = {};
+
+(function() {
+    //var firebase = app_fireBase;
+    var uid = null;
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // User is signed in.
+          uid = user.uid;
+        } else {
+            //Redirect to the login page.
+            uid = null;
+            window.location.replace("login.html");
+        }
+      });
+
+    function logOut() {
+        firebase.auth().signOut();
+    }
+
+    mainApp.logOut = logOut;
+})()
+
 //Tradier API Key 7CtiDC68QadwoeHJbLRmQu5l7qaE
 
+//Global Chart variables so the .destroy() method works when calles
 var ctx = $("#myChart");
-myChart = new Chart(ctx, { type: 'line', data: { labels: [], datasets: [] } });
+myChart = new Chart(ctx, {});
+
+//Global Chart data variables
+var companyName;
+var companySymbol;
+var companyDates;
+var companyData;
 
 $("#tradier").on("click", function() {
     $("body").css("background", "linear-gradient(to right, #e0eafc, #cfdef3)");
+    //Empties div displaying quote information from old search
     $("#latestQuote").empty();
+    //Destroys chart data from old chart so it doesnt repopulate when chart us hovered over
     myChart.destroy();
     
     var companySearch = $("#companySearch").val();
@@ -30,10 +82,8 @@ $("#tradier").on("click", function() {
         //If the search brings back many matches, it takes the first company and stores it in the variable
         if(companySymbol == null) {
             companySymbol = response.securities.security[0].symbol;
-        }
-
+        } 
     
-
         //Takes the companySymbol variable and includes it in the search to the IEX API to search for charts and news on the company    
         var stockURL = "https://api.iextrading.com/1.0//stock/" + companySymbol + "/batch?types=quote,news,chart&range=1m&last=7";
             $.ajax({
@@ -73,84 +123,83 @@ $("#tradier").on("click", function() {
                 $("#articleDiv").prepend(newHeadline);
             }
 
-        //Compiling Data for the Latest Quote Div and appending it to the page
-        $("#latestQuote").fadeIn();
-        $("#latestQuote").css("display", "inline-block");
-        var quoteHeader = $("<h2>");
-        quoteHeader.text("Up to the Minute Quote...");
-        $("#latestQuote").prepend(quoteHeader);
-        
-        var marketHeader = $("<h3>");
-        marketHeader.text("Market: " + response.quote.primaryExchange);
-        $("#latestQuote").append(marketHeader);
-        
-        var timeHeader = $("<h3>");
-        timeHeader.text("Time: " + response.quote.latestTime);
-        $("#latestQuote").append(timeHeader)
-        
-        var priceHeader = $("<h3>");
-        priceHeader.attr("id", "price");
-        priceHeader.text("Latest Price: " + response.quote.latestPrice);
-        $("#latestQuote").append(priceHeader);
-
-        var highHeader = $("<h3>");
-        highHeader.text("52 Week High: " + response.quote.week52High);
-        $("#latestQuote").append(highHeader);
-
-        var lowHeader = $("<h3>");
-        lowHeader.attr("id", "low");
-        lowHeader.text("52 Week Low: " + response.quote.week52Low);
-        $("#latestQuote").append(lowHeader);
-
-        //Making the News Articles Div appear on the page and prepending a header
-        $(".container2").fadeIn();
-        $(".container2").css("display", "inline-block");
-        var newHeader = $("<h2>");
-        newHeader.text("Latest " + companyName + " Headlines");
-        $("#articleDiv").prepend(newHeader);
-
-        //Styling the footer to appear on the page
-        $("footer").fadeIn();
-
-        
-        $(function () {
-            var ctx = $("#myChart");
-            myChart = new Chart(ctx, { type: 'line', data: { labels: [], datasets: [] } });
+            //Compiling Data for the Latest Quote Div and appending it to the page
+            $("#latestQuote").fadeIn();
+            $("#latestQuote").css("display", "inline-block");
+            var quoteHeader = $("<h2>");
+            quoteHeader.text("Up to the Minute Quote...");
+            $("#latestQuote").prepend(quoteHeader);
             
-            UpdateChart(myChart)
-        });
-
-        function UpdateChart(myChart) {
+            var marketHeader = $("<h3>");
+            marketHeader.text("Market: " + response.quote.primaryExchange);
+            $("#latestQuote").append(marketHeader);
             
-            var data =  {
-                        labels: companyDates,
-                        datasets: [{
-                            label: companyName,
-                            data: companyData,
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255,99,132,1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
+            var timeHeader = $("<h3>");
+            timeHeader.text("Time: " + response.quote.latestTime);
+            $("#latestQuote").append(timeHeader)
+            
+            var priceHeader = $("<h3>");
+            priceHeader.attr("id", "price");
+            priceHeader.text("Latest Price: " + response.quote.latestPrice);
+            $("#latestQuote").append(priceHeader);
+
+            var highHeader = $("<h3>");
+            highHeader.text("52 Week High: " + response.quote.week52High);
+            $("#latestQuote").append(highHeader);
+
+            var lowHeader = $("<h3>");
+            lowHeader.attr("id", "low");
+            lowHeader.text("52 Week Low: " + response.quote.week52Low);
+            $("#latestQuote").append(lowHeader);
+
+            //Making the News Articles Div appear on the page and prepending a header
+            $(".container2").fadeIn();
+            $(".container2").css("display", "inline-block");
+            var newHeader = $("<h2>");
+            newHeader.text("Latest " + companyName + " Headlines");
+            $("#articleDiv").prepend(newHeader);
+
+            //Styling the footer to appear on the page
+            $("footer").fadeIn();
+
+            //Function that creates chart
+            $(function () {
+                var ctx = $("#myChart");
+                myChart = new Chart(ctx, { type: 'line', data: { labels: [], datasets: [] } });
+                UpdateChart(myChart)
+            });
+
+            //Function that populates chart with search data
+            function UpdateChart(myChart) {
+                
+                var data =  {
+                            labels: companyDates,
+                            datasets: [{
+                                label: companyName,
+                                data: companyData,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255,99,132,1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                }
+                myChart.data.labels = data.labels
+                myChart.data.datasets = data.datasets
+                myChart.update()
             }
-            myChart.data.labels = data.labels
-            myChart.data.datasets = data.datasets
-            myChart.update()
-        }
+        })
     })
-    })
-
 })
